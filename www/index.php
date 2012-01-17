@@ -43,8 +43,24 @@ echo $contents; } ?>
 
 <!-- end of project description -->
 
-<p> No content added. </p>
-
+<p>Critical transitions are abrupt sudden changes in the dynamics of systems. Recent theoretical insights suggest that specific statistical properties may change in predictable manners prior to these critical transitions. The Early Warning Signals Toobox summarizes available methods and approaches for identifying critical transitions in timeseries data.</p>
+<p>&nbsp;</p>
+<blockquote>
+  <blockquote>
+    <blockquote>
+      <blockquote>
+        <blockquote>
+          <p><img src="images/fig_website_R.jpg" alt="" name="figure" width="572" height="501" align="top" id="figure" /></p>
+        </blockquote>
+      </blockquote>
+    </blockquote>
+  </blockquote>
+</blockquote>
+<p>&nbsp;</p>
+<p>The toolbox is currently under constant development. We aim in including all available methods and indicators that have been proposed as potential tools for signaling upcoming critical transitions.</p>
+<p><strong>References</strong></p>
+<p><a name="_ENREF_26" id="_ENREF_26">Scheffer, M., J. Bascompte, W. A. Brock, V. Brovkin, S. R. Carpenter, V. Dakos, H. Held, E. H. van Nes, M. Rietkerk, and G. Sugihara. 2009. Early-warning signals for critical transitions. Nature 461:53-59.</a></p>
+<p><a name="_ENREF_12" id="_ENREF_12">Dakos, V., M. Scheffer, E. H. van Nes, V. Brovkin, V. Petoukhov, and H. Held. 2008. Slowing down as an early warning signal for abrupt climate change. Proceedings of the National Academy of Sciences 105:14308-14312.</a></p>
 <p> The <strong>project summary page</strong> you can find <a href="http://<?php echo $domain; ?>/projects/<?php echo $group_name; ?>/"><strong>here</strong></a>. </p>
 
 </body>
