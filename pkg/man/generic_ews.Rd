@@ -1,0 +1,69 @@
+\title{Generic Early Warning Signals}
+\name{generic_ews}
+\alias{generic_ews}
+\alias{print.generic_ews}
+\keyword{early warning}
+\description{
+  \code{generic_ews} is used to estimate statistical moments within rolling windows along a timeseries
+}
+\usage{
+generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
+	"first-diff","no"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE)
+}
+\arguments{
+  \item{timeseries}{a numeric vector of the observed univariate timeseries values or a numeric matrix where the first column represents the time index and the second the observed timeseries values. Use vectors/matrices with headings.}
+  
+  \item{winsize}{is the size of the rolling window expressed as percentage of the timeseries length (must be numeric between 0 and 100). Default is 50\%.} 
+  
+  \item{bandwidth}{is the bandwidth used for the Gaussian kernel when gaussian filtering is applied. It is expressed as percentage of the timeseries length (must be numeric between 0 and 100). Alternatively it can be given by the bandwidth selector \code{\link{bw.nrd0}} (Default).}
+  
+   \item{detrending}{the timeseries can be detrended/filtered prior to analysis. There are three options: \code{gaussian} filtering, \code{linear} detrending and \code{first-differencing}. Default is \code{no} detrending.}
+     
+   \item{logtransform}{logical. If TRUE data are logtransformed prior to analysis as log(X+1). Default is FALSE.}
+   
+   \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).}
+}
+
+%\details{
+%}
+
+\value{
+  \code{generic_ews} returns a matrix that contains the following items:
+
+  \item{time}{the time index.}
+  \item{ar1}{the \code{autoregressive coefficient ar(1)} of a first order AR model fitted on the data within the rolling window.}
+  \item{sd}{the \code{standard deviation} of the data estimated within each rolling window.}
+  \item{sk}{the \code{skewness} of the data estimated within each rolling window.}
+  \item{kurt}{the \code{kurtosis} of the data estimated within each rolling window.}
+  \item{cv}{the \code{coefficient of variation} of the data estimated within each rolling window.}
+  \item{returnrate}{the return rate of the data estimated as \code{1-ar(1)} cofficient within each rolling window.}
+  \item{densratio}{the \code{density ratio} of the power spectrum of the data estimated as the ratio of low frequencies over high frequencies within each rolling window.}
+  \item{acf1}{the \code{autocorrelation at first lag} of the data estimated within each rolling window.}
+  
+  
+In addition, \code{generic_ews} returns three plots. The first plot contains the original data, the detrending/filtering applied and the residuals (if selected), and all the moment statistics. For each statistic trends are estimated by the nonparametric Kendall tau correlation.  The second plot, quantifies resilience indicators fitting AR(n) selected by the Akaike Information Criterion. The third plot is the power spectrum estimated by \code{\link{spec.ar}} for all frequencies within each rolling window.
+}
+
+\author{V. Dakos 
+}
+
+\references{
+Ives, A. R. (1995). "Measuring resilience in stochastic systems." \emph{Ecological Monographs} 65: 217-233
+
+Dakos, V., et al (2008). "Slowing down as an early warning signal for abrupt climate change." \emph{Proceedings of the National Academy of Sciences} 105(38): 14308-14312
+
+Biggs, R., et al (2009). "Turning back from the brink: Detecting an impending regime shift in time to avert it." \emph{Proceedings of the National Academy of Sciences} 106(3): 826-831
+
+Dakos et al (2012)
+}
+
+\seealso{
+  \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}}; \code{\link{bdstest_ews}};
+  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}}; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
+}
+
+\examples{
+# Loads a simulated timeseries up to a critical transition
+data(foldbif)
+out=generic_ews(foldbif,winsize=50,detrending="gaussian",bandwidth=5,logtransform=FALSE,interpolate=FALSE)
+}

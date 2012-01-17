@@ -1,0 +1,10 @@
+Package: earlywarnings
+Type: Package
+Title: Early Warning Signals Toolbox for Detecting Critical Transitions in Timeseries
+Version: 1.0
+Date: 2012-01-02
+Author: Vasilis Dakos, with contributions from S.C. Carpenter, T. Cline, A. Ives, V. Livina 
+Maintainer: Vasilis Dakos <vasilis.dakos@gmail.com>
+Description: The Early-Warning-Signals Toolbox provides methods for estimating statistical changes in timeseries that can be used for identifying nearby critical transitions. Based on Dakos et al (2012)
+URL: http://www.early-warning-signals.org, http://www.vasilisdakos.net
+License: GPL (>= 2)
