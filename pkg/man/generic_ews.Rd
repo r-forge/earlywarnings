@@ -11,7 +11,7 @@ generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
 	"first-diff","no"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE)
 }
 \arguments{
-  \item{timeseries}{a numeric vector of the observed univariate timeseries values or a numeric matrix where the first column represents the time index and the second the observed timeseries values. Use vectors/matrices with headings.}
+  \item{timeseries}{a numeric vector of the observed univariate timeseries values or a numeric matrix where the first column represents the time index and the second the observed timeseries values. Use vectors/matrices with headings. If the powerspectrum is to be plotted as well, the timeseries lenght should be even number.}
   
   \item{winsize}{is the size of the rolling window expressed as percentage of the timeseries length (must be numeric between 0 and 100). Default is 50\%.} 
   
@@ -21,7 +21,11 @@ generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
      
    \item{logtransform}{logical. If TRUE data are logtransformed prior to analysis as log(X+1). Default is FALSE.}
    
-   \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).}
+   \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).
+   	
+   \item{ARn}{logical. If TRUE the best fitted AR(n) model id fitted to the data. Default is FALSE.
+   	
+   \item{powerspectrum}{logical. If TRUE the power spectrum within each rolling window is plotted. Default is FALSE.}
 }
 
 %\details{
@@ -41,7 +45,7 @@ generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
   \item{acf1}{the \code{autocorrelation at first lag} of the data estimated within each rolling window.}
   
   
-In addition, \code{generic_ews} returns three plots. The first plot contains the original data, the detrending/filtering applied and the residuals (if selected), and all the moment statistics. For each statistic trends are estimated by the nonparametric Kendall tau correlation.  The second plot, quantifies resilience indicators fitting AR(n) selected by the Akaike Information Criterion. The third plot is the power spectrum estimated by \code{\link{spec.ar}} for all frequencies within each rolling window.
+In addition, \code{generic_ews} returns three plots. The first plot contains the original data, the detrending/filtering applied and the residuals (if selected), and all the moment statistics. For each statistic trends are estimated by the nonparametric Kendall tau correlation.  The second plot, if asked, quantifies resilience indicators fitting AR(n) selected by the Akaike Information Criterion. The third plot, if asked, is the power spectrum estimated by \code{\link{spec.ar}} for all frequencies within each rolling window.
 }
 
 \author{V. Dakos 
