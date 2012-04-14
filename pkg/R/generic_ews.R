@@ -1,7 +1,7 @@
 # Generic Early Warning Signals
 # Author: Vasilis Dakos, January 2, 2012
 	
-generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE){
+generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE){
 	
 	# Load required packages
 	require('lmtest')
@@ -105,26 +105,26 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	
 	# Estimate Kendall trend statistic for indicators
 	timevec<-seq(1,length(nARR))
-	KtAR<-cor.test(timevec,nARR,alternative=c("two.sided"),method=c	("kendall"),conf.level=0.95)
-	KtACF<-cor.test(timevec,nACF,alternative=c("two.sided"),method=c	("kendall"),conf.level=0.95)
-	KtSD<-cor.test(timevec,nSD,alternative=c("two.sided"),method=c	("kendall"),conf.level=0.95)
-	KtSK<-cor.test(timevec,nSK,alternative=c("two.sided"),method=c	("kendall"),conf.level=0.95)
-	KtKU<-cor.test(timevec,nKURT,alternative=c("two.sided"),method=c	("kendall"),conf.level=0.95)
-	KtDENSITYRATIO<-cor.test(timevec,nDENSITYRATIO,alternative=c	("two.sided"),method=c("kendall"),conf.level=0.95)
-	KtRETURNRATE<-cor.test(timevec,nRETURNRATE,alternative=c	("two.sided"),method=c("kendall"),conf.level=0.95)
-	KtCV<-cor.test(timevec,nCV,alternative=c("two.sided"),method=c	("kendall"),conf.level=0.95)
+	KtAR<-cor.test(timevec,nARR,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtACF<-cor.test(timevec,nACF,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtSD<-cor.test(timevec,nSD,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtSK<-cor.test(timevec,nSK,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtKU<-cor.test(timevec,nKURT,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtDENSITYRATIO<-cor.test(timevec,nDENSITYRATIO,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtRETURNRATE<-cor.test(timevec,nRETURNRATE,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
+	KtCV<-cor.test(timevec,nCV,alternative=c("two.sided"),method=c("kendall"),conf.level=0.95)
 
 	# Plotting
 	# Generic Early-Warnings
 	dev.new()
 	par(mar=(c(0,2,0,1)+0),oma=c(7,2,3,1),mfrow=c(5,2))
 	plot(timeindex,Y,type="l",ylab="",xlab="",xaxt="n",las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
-	if((detrending=="no") | (detrending=="first-diff")){
-		}else{
-		lines(timeindex,smY,col=2,xaxt="n",)}
+	if(detrending=="gaussian"){
+		lines(timeindex,smY,type="l",ylab="",xlab="",xaxt="n",col=2,las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
+	}
 	if(detrending=="no"){
-		plot(timeindex,Y,ylab="",xlab="",xaxt="n",type="n",las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
-		text(mean(timeindex),(max(Y)-min(Y))/2,"no residuals - no detrending")
+		plot(c(0,10),c(0,10),ylab="",xlab="",yaxt="n",xaxt="n",type="n",las=1)
+		text(5,5,"no residuals - no detrending")
 		}else if (detrending=="first-diff"){
 		limit<-max(c(max(abs(nsmY))))
 		plot(timeindexdiff,nsmY,ylab="",xlab="",type="l",xaxt="n",las=1,ylim=c(-	limit,limit),xlim=c(timeindexdiff[1],timeindexdiff[length(timeindexdiff)]))
@@ -164,6 +164,7 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	mtext("Generic Early-Warnings",side=3,line=0.2, outer=TRUE)#outer=TRUE print on the outer margin
 
 	# Resilience Estimators based on AR(n)
+	if (AR_n){
 	dev.new()
 	par(mar=(c(1,2,0,1)+0.2),oma=c(4,2,3,1),mfrow=c(2,2))
 	plot(timeindex[mw:length(nsmY)],ARn,type="p",ylab="",xlab="",xaxt="n",cex=0.1,las=1,cex.axis=0.8,xlim=c(timeindex[1],timeindex[length(timeindex)])) #10
@@ -177,13 +178,16 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	mtext("time",side=1,line=2,cex=0.8)
 	legend("topleft","b1 of AR(n)",bty = "n")
 	mtext("Resilience Estimators based on AR(n)",side=3,line=0.2, outer=TRUE)
+	}
 	
 	# Power spectrum
+	if (powerspectrum){
 	dev.new()
 	par(mar=(c(4.6,4,0.5,2)+0.2),oma=c(0.5,1,2,1))
 	image(x=(spectfft$freq[2:length(spectfft$freq)]),y=(seq(1,ncol	(nSPECT),by=1)),log(nSPECT[2:length(spectfft$freq),]),ylab="rolling window",xlab="frequency",log="x",xlim=c(spectfft$freq[2],spectfft$freq	[length(spectfft$freq)]),col=topo.colors(20),xaxs="i")
 	contour(x=(spectfft$freq[2:length(spectfft$freq)]),y=(seq(1,ncol	(nSPECT),by=1)),log(nSPECT[2:length(spectfft$freq),]),add=TRUE)
 	mtext("Power spectrum within rolling windows",side=3,line=0.2, outer=TRUE)
+	}
 	
 	# Output
 	out<-data.frame(timeindex[mw:length(nsmY)],nARR,nSD,nSK,nKURT,nCV,nRETURNRATE,nDENSITYRATIO,nACF)
