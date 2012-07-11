@@ -2,6 +2,9 @@
 # Author: Stephen R Carpenter, 22 Oct 2011
 # Modified by: Vasilis Dakos, January 1, 2012
 
+require('tseries')
+require('quadprog')
+
 # BDS test bootstrapped on a time series
 BDSboot <- function(X,varname,nboot,epsvec,emb) { # begin function
 StdEpsAll <- X  # name of variable for BDS
