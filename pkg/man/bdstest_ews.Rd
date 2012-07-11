@@ -18,7 +18,7 @@ bdstest_ews(timeseries,ARMAoptim=TRUE,ARMAorder=c(1,0),
       
   \item{ARMAorder}{is the order of the \code{AR(p)} and \code{MA(q)} process to be fitted on the original timeseries. Default is \code{p=1} \code{q=0}.}
   
-    \item{GARCHorder}{is the order \code{n} of the \code{GARCH(p,q)} model to be fitted on the original timeseries.}
+    \item{GARCHorder}{fits a GARCH(0,1) model on the original timeseries.}
   
   \item{embdim}{is the embedding dimension (2, 3,... \code{embdim}) up to which the BDS test will be estimated (must be numeric). Default value is 3.} 
     
