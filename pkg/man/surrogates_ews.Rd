@@ -20,7 +20,9 @@ surrogates_ews(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv",
     
    \item{detrending}{the timeseries can be detrended/filtered prior to analysis. There are three options: \code{gaussian} filtering, \code{linear} detrending and \code{first-diff}erencing. Default is \code{no} detrending.}
   
-  \item{bandwidth}{is the bandwidth used for the Gaussian kernel when gaussian filtering is selected. It is expressed as percentage of the timeseries length (must be numeric between 0 and 100). Alternatively it can be given by the bandwidth selector \code{\link{bw.nrd0}} (Default).}   
+  \item{bandwidth}{is the bandwidth used for the Gaussian kernel when gaussian filtering is selected. It is expressed as percentage of the timeseries length (must be numeric between 0 and 100). Alternatively it can be given by the bandwidth selector \code{\link{bw.nrd0}} (Default).} 
+  
+  \item{boots}{the number of surrogate data. Default is 100.}  
      
    \item{logtransform}{logical. If TRUE data are logtransformed prior to analysis as log(X+1). Default is FALSE.}
    
@@ -50,12 +52,13 @@ V. Dakos
 \references{
 Dakos, V., et al (2008). "Slowing down as an early warning signal for abrupt climate change." \emph{Proceedings of the National Academy of Sciences} 105(38): 14308-14312
 
-Dakos et al 2012
+Dakos, V., et al (2012)."Methods for Detecting Early Warnings of Critical Transitions in Time Series Illustrated Using Simulated Ecological Data." \emph{PLoS ONE} 7(7): e41010. doi:10.1371/journal.pone.0041010
 }
 
 \seealso{
   \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}}; \code{\link{bdstest_ews}};
-  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}}; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
+  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}};\code{\link{ch_ews}}
+  %; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
 }
 
 \examples{

@@ -18,14 +18,14 @@ bdstest_ews(timeseries,ARMAoptim=TRUE,ARMAorder=c(1,0),
       
   \item{ARMAorder}{is the order of the \code{AR(p)} and \code{MA(q)} process to be fitted on the original timeseries. Default is \code{p=1} \code{q=0}.}
   
-    \item{GARCHorder}{fits a GARCH(0,1) model on the original timeseries.}
+    \item{GARCHorder}{fits a GARCH model on the original timeseries where \code{GARCHorder[1]} is the GARCH part and \code{GARCHorder[2]} is the ARCH part.}
   
   \item{embdim}{is the embedding dimension (2, 3,... \code{embdim}) up to which the BDS test will be estimated (must be numeric). Default value is 3.} 
     
    \item{epsilon}{is a numeric vector that is used to scale the standard deviation of the timeseries. The BDS test is computed for each element of epsilon. Default is 0.5, 0.75 and 1.}
   
   \item{boots}{is the number of bootstraps performed to estimate significance p values for the BDS test. Default is 1000.}   
-     
+	⁃	     
    \item{logtransform}{logical. If TRUE data are logtransformed prior to analysis as log(X+1). Default is FALSE.}
    
    \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).}
@@ -51,8 +51,9 @@ Dakos et al 2012
 }
 
 \seealso{
-  \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}}; \code{\link{bdstest_ews}};
-  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}}; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
+  \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}};
+  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}};\code{\link{ch_ews}}
+  %; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
 }
 
 \examples{

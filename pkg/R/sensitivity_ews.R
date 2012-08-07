@@ -1,17 +1,17 @@
 # Sensitivity Early Warning Signals
 # Author: Vasilis Dakos, January 4, 2012
 	
-sensitivity_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsizerange=c(25,75),incrwinsize=25,detrending=c("no","gaussian","linear","first-diff"),bandwidthrange=c(5,100),incrbandwidth=20,logtransform=FALSE,interpolate=FALSE){
+# Load required packages
+	require(lmtest)
+	require(nortest)
+	require(stats)
+	require(som)
+	require(Kendall)
+	require(KernSmooth)
+	require(e1071)
+	require(fields)
 	
-	# Load required packages
-	require('lmtest')
-	require('nortest')
-	require('stats')
-	require('som')
-	require('Kendall')
-	require('KernSmooth')
-	require('e1071')
-	require('fields')
+sensitivity_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsizerange=c(25,75),incrwinsize=25,detrending=c("no","gaussian","linear","first-diff"),bandwidthrange=c(5,100),incrbandwidth=20,logtransform=FALSE,interpolate=FALSE){
 	
 timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
 	if (dim(timeseries)[2]==1){
@@ -100,7 +100,7 @@ timeseries<-ts(timeseries) #strict data-types the input data as tseries object f
 		layout(matrix(1:4,2,2))
 		par(font.main=10,mar=(c(4.6,4,0.5,2)+0.2),mgp=c(2,1,0),oma=c(0.5,1,2,1))
 		image.plot(width,tw,Ktauestind,zlim=c(-1,1),xlab="filtering bandwidth",ylab="rolling window size",main="Kendall tau estimate",cex.main=0.8,log="y",nlevel=20,col=rainbow(20))
-		ind=which(Ktauestind==max(Ktauestind),arr.in=TRUE)
+		ind=which(Ktauestind==max(Ktauestind),arr.ind=TRUE)
 		lines(width[ind[1]],tw[ind[2]],type="p",cex=1.2,pch=17,col=1)
 		hist(Ktauestind,breaks=12,col="lightblue",main=NULL, xlab="Kendall tau estimate", ylab="occurence",border="black",xlim=c(-1,1))
 		image.plot(width,tw,Ktaupind,zlim=c(0,max(Ktaupind)),xlab="filtering bandwidth",ylab="rolling window size",main="Kendall tau p-value",log="y",cex.main=0.8,nlevel=20,col=rainbow(20))

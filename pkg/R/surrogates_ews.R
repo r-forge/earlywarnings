@@ -1,16 +1,16 @@
 # Surrogates Early Warning Signals
 # Author: Vasilis Dakos, January 3, 2012
 	
+# Load required packages
+	require(lmtest)
+	require(nortest)
+	require(stats)
+	require(som)
+	require(Kendall)
+	require(KernSmooth)
+	require(e1071)
+	
 surrogates_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,boots=100,logtransform=FALSE,interpolate=FALSE){
-
-	# Load required packages
-	require('lmtest')
-	require('nortest')
-	require('stats')
-	require('som')
-	require('Kendall')
-	require('KernSmooth')
-	require('e1071')
 	
 timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
 	if (dim(timeseries)[2]==1){
@@ -85,7 +85,7 @@ timeseries<-ts(timeseries) #strict data-types the input data as tseries object f
 							indic<-apply(nMR,2,function(x){sd(x)/mean(x)})}
 							else if(indicator == "densratio"){
 							indic<- apply(nMR,2,function(x){
-							spectfft<-spec.ar(x,n.freq=omw1,plot=FALSE,order=1)
+							spectfft<-spec.ar(x,n.freq=omw,plot=FALSE,order=1)
 							spectfft$spec
 							spectfft$spec[low]/spectfft$spec[high]})}
 				# Calculate trend statistics
@@ -106,7 +106,7 @@ timeseries<-ts(timeseries) #strict data-types the input data as tseries object f
 		}
 
 	# Simulate ARMA(p,q) model fitted on residuals
-	ind=which(arma==min(arma),arr.in=TRUE)
+	ind=which(arma==min(arma),arr.ind=TRUE)
 	ARMA<-arima(nsmY, order = c(ind[1],0,ind[2]-1),include.mean = FALSE)
 
 	Ktauestind<-numeric()
@@ -142,7 +142,7 @@ timeseries<-ts(timeseries) #strict data-types the input data as tseries object f
 	indic<-apply(nMR1,2,function(x){sd(x)/mean(x)})}
 	else if(indicator == "densratio"){
 	indic<- apply(nMR1,2,function(x){
-	spectfft<-spec.ar(x,n.freq=omw1,plot=FALSE,order=1)
+	spectfft<-spec.ar(x,n.freq=omw,plot=FALSE,order=1)
 	spectfft$spec
 	spectfft$spec[low]/spectfft$spec[high]})
 	}

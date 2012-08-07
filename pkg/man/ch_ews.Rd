@@ -53,7 +53,8 @@ Dakos et al (2012)
 
 \seealso{
   \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}}; \code{\link{bdstest_ews}};
-  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}}; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
+  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}}
+%; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
 }
 
 \examples{

@@ -1,18 +1,19 @@
 # Generic Early Warning Signals
 # Author: Vasilis Dakos, January 2, 2012
 	
-generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE){
+# Load required packages
+	require(lmtest)
+	require(nortest)
+	require(stats)
+	require(som)
+	require(Kendall)
+	require(KernSmooth)
+	require(e1071)
 	
-	# Load required packages
-	require('lmtest')
-	require('nortest')
-	require('stats')
-	require('som')
-	require('Kendall')
-	require('KernSmooth')
-	require('e1071')
+generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE){	
 	
-	timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
+	#timeseries<-ts(timeseries)
+	timeseries<-data.matrix(timeseries) #strict data-types the input data as tseries object for use in later steps
 	if (dim(timeseries)[2]==1){
 		Y=timeseries
 		timeindex=1:dim(timeseries)[1]
@@ -39,8 +40,8 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	if (detrending=="gaussian"){
 		if (is.null(bandwidth)){
 			bw<-round(bw.nrd0(timeindex))}else{
-			bw<-round(length(Y)*bandwidth)/100}
-		smYY<-ksmooth(timeindex,Y,kernel=c("normal"), bandwidth=bw, range.x=range(timeindex),n.points=length(timeindex))
+			bw<-round(length(Y)*bandwidth/100)}
+			smYY<-ksmooth(timeindex,Y,kernel="normal",bandwidth=bw, 		range.x=range(timeindex),x.points=timeindex)
 		nsmY<-Y-smYY$y
 		smY<-smYY$y
 	}else if(detrending=="linear"){
@@ -56,7 +57,7 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 
 
 	# Rearrange data for indicator calculation
-	mw<-round(length(Y)*winsize)/100
+	mw<-round(length(Y)*winsize/100)
 	omw<-length(nsmY)-mw+1 ##number of moving windows
 	low<-6
 	high<-omw
@@ -93,6 +94,7 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	nSPECT[,i]<-spectfft$spec
 	nDENSITYRATIO[i]<- spectfft$spec[low]/spectfft$spec[high]
 	
+	if (AR_n){
 	## RESILIENCE IVES 2003 Indicators based on AR(n)
 	ARall<-ar.ols(nMR[,i],aic= TRUE,order.max=6,demean=F, intercept=F)
 	smARall[i]<-ARall$ar[1]
@@ -100,6 +102,7 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	roots<-Mod(polyroot(c(rev(-ARall$ar),1)))
 	smARmaxeig[i]<-max(roots)
 	detB[i]<-(prod(roots))^(2/ARn[i])}
+	}
 	
 	nRETURNRATE=1/nARR
 	
@@ -121,10 +124,11 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	plot(timeindex,Y,type="l",ylab="",xlab="",xaxt="n",las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
 	if(detrending=="gaussian"){
 		lines(timeindex,smY,type="l",ylab="",xlab="",xaxt="n",col=2,las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
+
 	}
 	if(detrending=="no"){
-		plot(c(0,10),c(0,10),ylab="",xlab="",yaxt="n",xaxt="n",type="n",las=1)
-		text(5,5,"no residuals - no detrending")
+		plot(c(0,1),c(0,1),ylab="",xlab="",yaxt="n",xaxt="n",type="n",las=1)
+		text(0.5,0.5,"no residuals - no detrending")
 		}else if (detrending=="first-diff"){
 		limit<-max(c(max(abs(nsmY))))
 		plot(timeindexdiff,nsmY,ylab="",xlab="",type="l",xaxt="n",las=1,ylim=c(-	limit,limit),xlim=c(timeindexdiff[1],timeindexdiff[length(timeindexdiff)]))
@@ -151,8 +155,8 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 		plot(timeindex[mw:length(nsmY)],nCV,ylab="",xlab="",type="l",xaxt="n",las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
 	legend("bottomleft",paste("Kendall tau=",round(KtCV$estimate,digits=3)),bty = "n")
 	legend("topleft","coefficient of variation",bty = "n")}else{
-		plot(timeindex,Y,ylab="",xlab="",type="n",xaxt="n",las=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
-		text(mean(timeindex),mean(Y),"no coeff var estimated - data detrended")}
+		plot(0,0,ylab="",xlab="",type="n",xaxt="n",yaxt="n",xlim=c(0,1),ylim=c(0,1))
+		text(0.5,0.5,"no coeff var estimated - data detrended")}
 	plot(timeindex[mw:length(nsmY)],nSK,type="l",ylab="",xlab="",las=1,cex.lab=1,xlim=c(timeindex[1],timeindex[length(timeindex)]))
 	legend("topleft","skewness",bty = "n")
 	legend("bottomleft",paste("Kendall tau=",round(KtSK$estimate,digits=3)),bty = "n")

@@ -8,7 +8,7 @@
 }
 \usage{
 generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
-	"first-diff","no"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE)
+	"first-diff","no"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE))
 }
 \arguments{
   \item{timeseries}{a numeric vector of the observed univariate timeseries values or a numeric matrix where the first column represents the time index and the second the observed timeseries values. Use vectors/matrices with headings. If the powerspectrum is to be plotted as well, the timeseries lenght should be even number.}
@@ -21,9 +21,9 @@ generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
      
    \item{logtransform}{logical. If TRUE data are logtransformed prior to analysis as log(X+1). Default is FALSE.}
    
-   \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).
+   \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).}
    	
-   \item{ARn}{logical. If TRUE the best fitted AR(n) model id fitted to the data. Default is FALSE.
+   \item{ARn}{logical. If TRUE the best fitted AR(n) model is fitted to the data. Default is FALSE.}
    	
    \item{powerspectrum}{logical. If TRUE the power spectrum within each rolling window is plotted. Default is FALSE.}
 }
@@ -48,7 +48,8 @@ generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
 In addition, \code{generic_ews} returns three plots. The first plot contains the original data, the detrending/filtering applied and the residuals (if selected), and all the moment statistics. For each statistic trends are estimated by the nonparametric Kendall tau correlation.  The second plot, if asked, quantifies resilience indicators fitting AR(n) selected by the Akaike Information Criterion. The third plot, if asked, is the power spectrum estimated by \code{\link{spec.ar}} for all frequencies within each rolling window.
 }
 
-\author{V. Dakos 
+\author{
+V. Dakos 
 }
 
 \references{
@@ -58,12 +59,13 @@ Dakos, V., et al (2008). "Slowing down as an early warning signal for abrupt cli
 
 Biggs, R., et al (2009). "Turning back from the brink: Detecting an impending regime shift in time to avert it." \emph{Proceedings of the National Academy of Sciences} 106(3): 826-831
 
-Dakos et al (2012)
+Dakos, V., et al (2012)."Methods for Detecting Early Warnings of Critical Transitions in Time Series Illustrated Using Simulated Ecological Data." \emph{PLoS ONE} 7(7): e41010. doi:10.1371/journal.pone.0041010
 }
 
 \seealso{
   \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}}; \code{\link{bdstest_ews}};
-  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}}; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
+  \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}};\code{\link{ch_ews}}
+  %; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
 }
 
 \examples{
