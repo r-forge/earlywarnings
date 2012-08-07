@@ -6,7 +6,7 @@ install.packages(c("tseries","quadprog"), repos = c("http://R-Forge.R-project.or
 require(tseries)
 require(quadprog)
 
-bdstest_ews<-function(timeseries,ARMAoptim=TRUE,ARMAorder=c(1,0),GARCHorder=(0,1),embdim=3,epsilon=c(0.5,0.75,1),boots=1000,logtransform=FALSE,interpolate=FALSE){
+bdstest_ews<-function(timeseries,ARMAoptim=TRUE,ARMAorder=c(1,0),GARCHorder=c(0,1),embdim=3,epsilon=c(0.5,0.75,1),boots=1000,logtransform=FALSE,interpolate=FALSE){
 	
 	timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
 	if (dim(timeseries)[2]==1){
