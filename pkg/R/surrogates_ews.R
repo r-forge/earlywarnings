@@ -2,7 +2,8 @@
 # Author: Vasilis Dakos, January 3, 2012
 	
 # Load required packages
-	require(lmtest)
+  install.packages(c("lmtest","nortest","stats","som","Kendall","KernSmooth","e1071"), repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)
+  require(lmtest)
 	require(nortest)
 	require(stats)
 	require(som)

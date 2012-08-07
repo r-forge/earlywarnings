@@ -12,6 +12,7 @@
 #  na is number of a values for computing the kernel
 #  avec is the mesh for the kernel
 
+install.packages("KernSmooth", repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)
 require(KernSmooth)
 
 # MAIN FUNCTION

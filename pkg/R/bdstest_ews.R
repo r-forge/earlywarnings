@@ -2,6 +2,7 @@
 # Author: Stephen R Carpenter, 22 Oct 2011
 # Modified by: Vasilis Dakos, January 1, 2012
 
+install.packages(c("tseries","quadprog"), repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)
 require(tseries)
 require(quadprog)
 
