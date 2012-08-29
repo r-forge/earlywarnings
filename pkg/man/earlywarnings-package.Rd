@@ -1,6 +1,6 @@
 \name{earlywarnings-package}
 \alias{earlywarnings-package}
-\alias{earlywarnings}
+%\alias{earlywarnings}
 \docType{package}
 \title{
 Early Warning Signals Toolbox for Detecting Critical Transitions in Timeseries
@@ -26,10 +26,10 @@ Maintainer: Vasilis Dakos <vasilis.dakos@gmail.com>
 Dakos et al 2012
 }
 \keyword{ package }
-\seealso{
+%\seealso{
 %spatial package -- Optional links to other man pages, e.g. ~~
 %\code{\link[<pkg>:<pkg>-package]{<pkg>}} ~~
-}
+%}
 %\examples{
 %~~ simple examples of the most important functions ~~
 %}

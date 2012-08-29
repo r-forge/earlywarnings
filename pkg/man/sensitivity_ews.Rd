@@ -1,7 +1,7 @@
 \title{Sensitivity Early Warning Signals}
 \name{sensitivity_ews}
 \alias{sensitivity_ews}
-\alias{print.sensitivity_ews}
+%\alias{print.sensitivity_ews}
 \keyword{early warning}
 \description{
   \code{sensitivity_ews} is used to estimate trends in statistical moments for different sizes of rolling windows along a timeseries. The trends are estimated by the nonparametric Kendall tau correlation coefficient.
@@ -38,12 +38,12 @@ sensitivity_ews(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv",
 \value{
   \code{sensitivity_ews} returns a matrix that contains:
 
-  \item{tw}{the rolling window sizes over which the sensitivity analysis was performed}
-  \item{width}{the bandwidths over which the sensitivity analysis was performed (only when \code{gaussian filtering} is selected)}
-  \item{Kendall tau estimate}{the Kendall tau rank correlation estimates}
-  \item{Kendall tau p-value}{the associated p values for the Kendall tau rank correlation estimate}
+%  \item{tw}{the rolling window sizes over which the sensitivity analysis was performed}
+%  \item{width}{the bandwidths over which the sensitivity analysis was performed (only when \code{gaussian filtering} is selected)}
+%  \item{Kendall tau estimate}{the Kendall tau rank correlation estimates}
+%  \item{Kendall tau p-value}{the associated p values for the Kendall tau rank correlation estimate}
   
-  
+A matrix with the Kendall tau rank correlation estimates for the rolling window sizes (rows) and bandwidths (columns), if \code{gaussian filtering} is selected.
 In addition, \code{sensitivity_ews} returns a plot with the Kendall tau estimates and their p-values for the range of rolling window sizes used, together with a histogram of the distributions of the statistic and its significance. When \code{gaussian filtering} is chosen, a contour plot is produced for the Kendall tau estimates and their p-values for the range of both rolling window sizes and bandwidth used. A reverse triangle indicates the combination of the two parameters for which the Kendall tau was the highest.
 }
 

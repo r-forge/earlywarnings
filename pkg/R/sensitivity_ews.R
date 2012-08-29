@@ -3,19 +3,22 @@
 	
 # Load required packages
   install.packages("fields", repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)
-  require(lmtest)
+
+	
+sensitivity_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsizerange=c(25,75),incrwinsize=25,detrending=c("no","gaussian","linear","first-diff"),bandwidthrange=c(5,100),incrbandwidth=20,logtransform=FALSE,interpolate=FALSE){
+	
+	require(lmtest)
 	require(nortest)
 	require(stats)
 	require(som)
 	require(Kendall)
 	require(KernSmooth)
-	require(e1071)
+	require(moments)
 	require(fields)
 	
-sensitivity_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsizerange=c(25,75),incrwinsize=25,detrending=c("no","gaussian","linear","first-diff"),bandwidthrange=c(5,100),incrbandwidth=20,logtransform=FALSE,interpolate=FALSE){
-	
-timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
-	if (dim(timeseries)[2]==1){
+#timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
+	  timeseries<-data.matrix(timeseries)
+    if (dim(timeseries)[2]==1){
 		Y=timeseries
 		timeindex=1:dim(timeseries)[1]
 		}else if(dim(timeseries)[2]==2){
@@ -110,8 +113,9 @@ timeseries<-ts(timeseries) #strict data-types the input data as tseries object f
 		mtext(paste("Indicator ",toupper(indicator)),side=3,line=0.2, outer=TRUE)
 		
 		# Output
-		out<-data.frame(tw,width,Ktauestind,Ktaupind)
-		colnames(out)<-c("rolling window size","bandwidth","Kendall tau estimate","Kendall tau p-value")
+		out<-data.frame(Ktauestind)
+		colnames(out)<-tw
+    rownames(out)<-width
 		return(out)		
 
 	}else if(detrending=="linear"){
@@ -176,7 +180,9 @@ for (ti in 1:length(tw)){
 		mtext(paste("Indicator ",toupper(indicator)),side=3,line=0.2, outer=TRUE)
 		
 		# Output
-		out<-data.frame(tw,Ktauestind,Ktaupind)
-		colnames(out)<-c("rolling window size","Kendall tau estimate","Kendall tau p-value")
+# 		out<-data.frame(tw,Ktauestind,Ktaupind)
+# 		colnames(out)<-c("rolling window","Kendall tau estimate","Kendall tau p-value")
+	  out<-data.frame(Ktauestind)
+    rownames(out)<-tw
 		return(out)	
 }

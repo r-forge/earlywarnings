@@ -1,7 +1,7 @@
 \title{BDS test Early Warning Signals}
 \name{bdstest_ews}
 \alias{bdstest_ews}
-\alias{print.bdstest_ews}
+%\alias{print.bdstest_ews}
 \keyword{early warning}
 \description{
   \code{bdstest_ews} is used to estimate the BDS statistic to detect nonlinearity in the residuals of a timeseries after first-difference detrending, fitting an ARMA(p,q) model, and fitting a GARCH(0,1) model. The function is making use of \code{\link{bds.test}}.
@@ -51,7 +51,7 @@ Dakos et al 2012
 }
 
 \seealso{
-  \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}};
+  \code{\link{generic_ews}};\code{\link{ddjnonparam_ews}};
   \code{\link{sensitivity_ews}};\code{\link{surrogates_ews}};\code{\link{ch_ews}}
   %; \code{\link{timeVAR_ews}};; \code{\link{thresholdAR_ews}}
 }

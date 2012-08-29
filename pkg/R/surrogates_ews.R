@@ -3,18 +3,20 @@
 	
 # Load required packages
   #install.packages(c("lmtest","nortest","stats","som","Kendall","KernSmooth","e1071"), repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)
-  require(lmtest)
+	
+surrogates_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,boots=100,logtransform=FALSE,interpolate=FALSE){
+	
+	require(lmtest)
 	require(nortest)
 	require(stats)
 	require(som)
 	require(Kendall)
 	require(KernSmooth)
-	require(e1071)
+	require(moments)
 	
-surrogates_ews<-function(timeseries,indicator=c("ar1","sd","acf1","sk","kurt","cv","returnrate","densratio"),winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,boots=100,logtransform=FALSE,interpolate=FALSE){
-	
-timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
-	if (dim(timeseries)[2]==1){
+#timeseries<-ts(timeseries) #strict data-types the input data as tseries object for use in later steps
+	timeseries<-data.matrix(timeseries)
+  if (dim(timeseries)[2]==1){
 		Y=timeseries
 		timeindex=1:dim(timeseries)[1]
 		}else if(dim(timeseries)[2]==2){

@@ -1,7 +1,7 @@
 \title{Conditional Heteroskedasticity}
 \name{ch_ews}
 \alias{ch_ews}
-\alias{print.ch_ews}
+%\alias{print.ch_ews}
 \keyword{early warning}
 \description{
   \code{ch_ews} is used to estimate changes in conditional heteroskedasticity within rolling windows along a timeseries

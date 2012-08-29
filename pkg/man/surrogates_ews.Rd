@@ -1,7 +1,7 @@
 \title{Surrogates Early Warning Signals}
 \name{surrogates_ews}
 \alias{surrogates_ews}
-\alias{print.surrogates_ews}
+%\alias{print.surrogates_ews}
 \keyword{early warning}
 \description{
   \code{surrogates_ews} is used to estimate distributions of trends in statistical moments from different surrogate timeseries generated after fitting an ARMA(p,q) model on the data. The trends are estimated by the nonparametric Kendall tau correlation coefficient and can be compared to the trends estimated in the original timeseries to produce probabilities of false positives.

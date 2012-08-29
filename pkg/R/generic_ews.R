@@ -2,17 +2,18 @@
 # Author: Vasilis Dakos, January 2, 2012
 	
 # Load required packages
-  install.packages(c("lmtest","nortest","stats","som","Kendall","KernSmooth","e1071","class"), repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)	
-  require(lmtest)
+  #install.packages(c("lmtest","nortest","stats","som","Kendall","KernSmooth","e1071","class"), repos = c("http://R-Forge.R-project.org", "http://cran-mirror.cs.uu.nl/"), dep = TRUE)	
+  	
+generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE){	
+	
+	require(lmtest)
 	require(nortest)
 	require(stats)
 	require(som)
 	require(Kendall)
 	require(KernSmooth)
-	require(e1071)
-	
-generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE){	
-	
+	require(moments)
+
 	#timeseries<-ts(timeseries)
 	timeseries<-data.matrix(timeseries) #strict data-types the input data as tseries object for use in later steps
 	if (dim(timeseries)[2]==1){
@@ -82,10 +83,11 @@ generic_ews<-function(timeseries,winsize=50,detrending=c("no","gaussian","linear
 	detB<-numeric()
 	ARn<-numeric()
 
+	nSD<-apply(nMR, 2, sd, na.rm = TRUE)
 	for (i in 1:ncol(nMR)){
 		nYR<-ar.ols(nMR[,i],aic= FALSE, order.max=1, dmean=FALSE, 		intercept=FALSE)
 		nARR[i]<-nYR$ar
-		nSD[i]<-sd(nMR[,i], na.rm = TRUE)
+# 		nSD[i]<-sapply(nMR[,i], sd, na.rm = TRUE)#sd(nMR[,i], na.rm = TRUE)
 		nSK[i]<-abs(skewness(nMR[,i],na.rm=TRUE))
 	nKURT[i]<-kurtosis(nMR[,i],na.rm=TRUE)
 	nCV[i]<-nSD[i]/mean(nMR[,i])

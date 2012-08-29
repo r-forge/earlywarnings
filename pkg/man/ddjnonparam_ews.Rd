@@ -1,7 +1,7 @@
 \title{Diffusion Drift Jump Nonparametric Early Warning Signals}
 \name{ddjnonparam_ews}
 \alias{ddjnonparam_ews}
-\alias{print.ddjnonparam_ews}
+%\alias{print.ddjnonparam_ews}
 \keyword{early warning}
 \description{
   \code{ddjnonparam_ews} is used to compute nonparametrically conditional variance, drift, diffusion and jump intensity in a timeseries. It also interpolates to obtain the evolution of the nonparametric statistics in time.

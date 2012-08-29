@@ -1,14 +1,13 @@
 \title{Generic Early Warning Signals}
 \name{generic_ews}
 \alias{generic_ews}
-\alias{print.generic_ews}
+%\alias{print.generic_ews}
 \keyword{early warning}
 \description{
   \code{generic_ews} is used to estimate statistical moments within rolling windows along a timeseries
 }
 \usage{
-generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
-	"first-diff","no"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE))
+generic_ews(timeseries,winsize=50,detrending=c("no","gaussian","linear","first-diff"),bandwidth=NULL,logtransform=FALSE,interpolate=FALSE,AR_n=FALSE,powerspectrum=FALSE)
 }
 \arguments{
   \item{timeseries}{a numeric vector of the observed univariate timeseries values or a numeric matrix where the first column represents the time index and the second the observed timeseries values. Use vectors/matrices with headings. If the powerspectrum is to be plotted as well, the timeseries lenght should be even number.}
@@ -17,13 +16,13 @@ generic_ews(timeseries,winsize=50,detrending=c("gaussian","linear",
   
   \item{bandwidth}{is the bandwidth used for the Gaussian kernel when gaussian filtering is applied. It is expressed as percentage of the timeseries length (must be numeric between 0 and 100). Alternatively it can be given by the bandwidth selector \code{\link{bw.nrd0}} (Default).}
   
-   \item{detrending}{the timeseries can be detrended/filtered prior to analysis. There are three options: \code{gaussian} filtering, \code{linear} detrending and \code{first-differencing}. Default is \code{no} detrending.}
+   \item{detrending}{the timeseries can be detrended/filtered prior to analysis. There are four options: \code{gaussian} filtering, \code{linear} detrending and \code{first-differencing}. Default is \code{no} detrending.}
      
    \item{logtransform}{logical. If TRUE data are logtransformed prior to analysis as log(X+1). Default is FALSE.}
    
    \item{interpolate}{logical. If TRUE linear interpolation is applied to produce a timeseries of equal length as the original. Default is FALSE (assumes there are no gaps in the timeseries).}
    	
-   \item{ARn}{logical. If TRUE the best fitted AR(n) model is fitted to the data. Default is FALSE.}
+   \item{AR_n}{logical. If TRUE the best fitted AR(n) model is fitted to the data. Default is FALSE.}
    	
    \item{powerspectrum}{logical. If TRUE the power spectrum within each rolling window is plotted. Default is FALSE.}
 }
