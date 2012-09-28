@@ -1,7 +1,7 @@
 \name{YD2PB_grayscale}
 \alias{YD2PB_grayscale}
 \docType{data}
-\title{Youner Dryas to PreBoreal transition
+\title{Younger Dryas to PreBoreal transition
 %%   ~~ data name/kind ... ~~
 }
 \description{Grayscale paleodata of the exit from the Younger Dryas
