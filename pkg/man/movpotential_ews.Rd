@@ -73,7 +73,7 @@ X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), rnorm(1000, mean = 2))
 \references{
   Hirota, M., Holmgren, M., van Nes, E.H. & Scheffer, M.
   (2011). Global resilience of tropical forest and savanna
-  to critical transitions. Science, 334, 232–235
+  to critical transitions. Science, 334, 232-235
 }
 \seealso{
   \code{\link{generic_ews}}; \code{\link{ddjnonparam_ews}};
