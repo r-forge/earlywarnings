@@ -30,10 +30,12 @@ PlotPotential <- function (res, title = "", xlab.text, ylab.text, cutoff = 0.5) 
 
   # Static contour
   # Interpolate potential grid
-  intp <- akima::interp(as.vector(res$pars), as.vector(res$xis), as.vector(pots)) 
+  intp <- interp(as.vector(res$pars), as.vector(res$xis), as.vector(pots)) 
   xy <- expand.grid(intp$x, intp$y)
   z <- as.vector(intp$z)   	
   z[is.na(z)] <- max(na.omit(z))
+  bg.var=NULL
+  phylotype=NULL
 
   df <- data.frame(list(bg.var = xy[,1], phylotype = xy[,2], potential = z))
   p<-ggplot(df, aes(bg.var, phylotype, z = potential)) + geom_tile(aes(fill = potential)) + stat_contour(binwidth = 0.2) 
