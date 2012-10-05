@@ -70,10 +70,7 @@
 \details{
   see ref below
 }
-\examples{
-data(foldbif)
-out=ch_ews(foldbif, winsize=50, alpha=0.05, optim=TRUE, lags)
-}
+
 \author{
   T. Cline, modified by V. Dakos
 }

@@ -87,11 +87,7 @@
 \details{
   see ref below
 }
-\examples{
-data(foldbif)
-output=sensitivity_ews(foldbif,indicator="sd",detrending="gaussian",
-incrwinsize=25,incrbandwidth=20)
-}
+
 \author{
   Vasilis Dakos \email{vasilis.dakos@gmail.com}
 }

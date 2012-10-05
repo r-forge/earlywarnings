@@ -99,11 +99,7 @@
 \details{
   see ref below
 }
-\examples{
-data(foldbif)
- out=generic_ews(foldbif,winsize=50,detrending="gaussian",
- bandwidth=5,logtransform=FALSE,interpolate=FALSE)
-}
+
 \author{
   Vasilis Dakos \email{vasilis.dakos@gmail.com}
 }
