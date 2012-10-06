@@ -45,11 +45,11 @@
 \details{
   see ref below
 }
-\examples{
-data(foldbif)
-res <- livpotential_ews(foldbif)
-plot(res$xi, res$pot)
-}
+%\examples{
+%data(foldbif)
+%res <- livpotential_ews(foldbif)
+%plot(res$xi, res$pot)
+%}
 \author{
   Based on Matlab code from Egbert van Nes modified by Leo
   Lahti. Implemented in early warnings package by V. Dakos.

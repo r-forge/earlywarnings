@@ -61,11 +61,11 @@
   \code{movpotential} calculates the potential for values
   that correspond to a particular parameter. see ref below
 }
-\examples{
-X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), rnorm(1000, mean = 2))
- param = seq(0,5,length=3000)
- res <- movpotential_ews(X, param, npoints = 100, thres = 0.003)
-}
+%\examples{
+%X = c(rnorm(1000, mean = 0), rnorm(1000, mean = -2), rnorm(1000, mean = 2))
+% param = seq(0,5,length=3000)
+% res <- movpotential_ews(X, param, npoints = 100, thres = 0.003)
+%}
 \author{
   Based on Matlab code from Egbert van Nes modified by Leo
   Lahti. Implemented in early warnings package by V. Dakos.
